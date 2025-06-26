@@ -124,7 +124,44 @@ namespace Coding_Tracker.Jasmine330
                 ProcessUpdate();
             }
 
-            var upateInput = " "
+            var updateInput = "";
+            bool updating = true;
+
+            while (updating == true)
+            {
+                Console.WriteLine($"\nType 'd' for Date \n");
+                Console.WriteLine($"\nType 't for Duration \n");
+                Console.WriteLine($"\nType 's' for save update \n");
+                Console.WriteLine($"\nType '0' to Go Back to Main Menu \n");
+
+                updateInput = Console.ReadLine();
+
+                switch (updateInput)
+                {
+                    case "d":
+                        coding.Date = GetDateInput();
+                        break;
+
+                    case "t":
+                        coding.Duration = GetDurationInput();
+                        break;
+
+                    case "0":
+                        MainMenu();
+                        updating = false;
+                        break;
+
+                    case "s":
+                        updating = false;
+                        break;
+
+                    default:
+                        Console.WriteLine($"\nType '0' to Go Back to Main Menu \n");
+                        break;
+                }
+            }
+            codingController.Update(coding);
+            MainMenu();
         }
 
         internal string GetDateInput()

@@ -64,6 +64,27 @@ namespace Coding_Tracker.Jasmine330
             }
         }
 
+        internal void Update(Coding coding)
+        {
+            using (var connection = new SqliteConnection(connectionString))
+            {
+                using (var tableCmd = connection.CreateCommand())
+                {
+                    connection.Open();
+                    tableCmd.CommandText =
+                        $@"Update coding SeT
+                                Date = '{coding.Date}',
+                                Duration = '{coding.Duration}'
+                            WHERE
+                                Id = {coding.Id}";
+
+                    tableCmd.ExecuteNonQuery();
+                }
+            }
+
+            Console.WriteLine($"\n\nRecord with Id {coding.Id} was updated.\n\n");
+        }
+
         internal void Get()
         {
             List<Coding> tableData = new List<Coding>();
